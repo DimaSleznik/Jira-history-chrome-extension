@@ -1,0 +1,21 @@
+{
+   "manifest_version": 3,
+   "name": "Jira history changes",
+   "version": "1.0",
+   "description": "ui for text comparing",
+   "action": {
+      "default_popup": "popup/popup.html",
+      "default_icon": "popup/popup.png"
+    },
+   "icons": {},
+   "content_scripts": [
+     {
+       "css": ["textDiff.css"],
+       "js": ["scripts/diff.min.js","scripts/content.js"],
+       "content_security_policy": "script-src 'self' https://ajax.googleapis.com; object-src 'self'",
+       "matches": [
+         "https://cloudbusinessllc.atlassian.net/*"
+       ]
+     }
+   ]
+}

@@ -1,0 +1,28 @@
+.wrapper-container {
+  position: absolute;
+  bottom: 0;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-color: darkgray;
+  border-radius: 50%;
+}
+
+.wrapper-container .tooltiptext {
+  text-align: start;
+  visibility: hidden;
+  width: fit-content;
+  background-color: rgb(255, 255, 255);
+  border: 1px solid darkslategrey;
+  box-shadow: 10px 5px 5px grey;
+  padding: 20px;
+  border-radius: 4px;
+  position: absolute;
+  margin-top: -25px;
+  margin-left: 20px;
+  z-index: 1;
+}
+
+.wrapper-container:hover .tooltiptext {
+  visibility: visible;
+}
