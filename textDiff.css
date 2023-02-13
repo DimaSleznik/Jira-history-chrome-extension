@@ -4,14 +4,13 @@
   display: inline-block;
   width: 20px;
   height: 20px;
-  background-color: darkgray;
-  border-radius: 50%;
 }
 
-.wrapper-container .tooltiptext {
+.wrapper-container .tooltip-text {
   text-align: start;
   visibility: hidden;
   width: fit-content;
+  min-width: 500px;
   background-color: rgb(255, 255, 255);
   border: 1px solid darkslategrey;
   box-shadow: 10px 5px 5px grey;
@@ -23,6 +22,17 @@
   z-index: 1;
 }
 
-.wrapper-container:hover .tooltiptext {
+.change-img {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.change-img:hover{
+  background-color: rgba(0,0,0, 10%);
+  border-radius: 50%;
+}
+
+.wrapper-container:hover .tooltip-text {
   visibility: visible;
 }

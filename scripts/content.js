@@ -8,8 +8,11 @@ function getChangeItemElement(textA, textB) {
   const diff = Diff.diffChars(textA, textB);
 
   const wrapper = document.createElement("div");
-
+  const backgroundImg = document.createElement("img");
   const fragment = document.createElement("div");
+
+  backgroundImg.setAttribute('src', 'https://cdn-icons-png.flaticon.com/128/3793/3793562.png')
+
 
   diff.forEach((part) => {
     const color = part.added ? "#17B169" : part.removed ? "#E31837" : "black";
@@ -19,28 +22,29 @@ function getChangeItemElement(textA, textB) {
     fragment.appendChild(span);
   });
 
-  fragment.classList.add("tooltiptext");
+  fragment.classList.add("tooltip-text");
+  backgroundImg.classList.add('change-img')
 
   wrapper.append(fragment);
+  wrapper.append(backgroundImg);
   wrapper.classList.add("wrapper-container");
   return wrapper;
 }
 
-
-
-
 function parseHistoryItems () {
-  console.log('START PARCE')
   const elements = document.querySelectorAll("div[data-test-id]");
-  const filtredById = [...elements].filter((el) => {
+  const filteredById = [...elements].filter((el) => {
     return el.getAttribute("data-test-id") === CHANGES_ELEMENT_VALUE;
   });
-  filtredById.forEach((el) => {
+  filteredById.forEach((el) => {
     const historyBlock = el.children[1].children[1].children;
     el.style.position = "relative";
     const oldVersionText = historyBlock[0].children[0].innerHTML;
     const changedText = historyBlock[2].children[0].innerHTML;
-    el.append(getChangeItemElement(oldVersionText, changedText));
+    const isOneEmpty = oldVersionText.includes('None') || changedText.includes('None');
+    if(!isOneEmpty) {
+      el.append(getChangeItemElement(oldVersionText, changedText));
+    }
   });
 }
 
@@ -48,12 +52,7 @@ function addButtonsEvents () {
   const elements = document.querySelectorAll("button[data-testid]");
   const historyBtn =  [...elements].find(el => el.getAttribute("data-testid") === HISTORY_BTN_ID)
   if(historyBtn) {
-    console.log(historyBtn)
-    historyBtn.addEventListener('onClick', () => alert('test'))
-    historyBtn.onClick = () => {
-      console.log('CLICK')
-      setTimeout(parseHistoryItems, 2000)
-    }
+    historyBtn.addEventListener('click', () => setTimeout(parseHistoryItems, 2000))
   }
 }
 
