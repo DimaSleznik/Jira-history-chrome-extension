@@ -28,11 +28,11 @@
   cursor: pointer;
 }
 
-.change-img:hover{
-  background-color: rgba(0,0,0, 10%);
+.wrapper-container[opened=true] .change-img {
+  background-color: rgba(0, 0, 0, 10%);
   border-radius: 50%;
 }
 
-.wrapper-container:hover .tooltip-text {
+.wrapper-container[opened=true] .tooltip-text {
   visibility: visible;
 }
