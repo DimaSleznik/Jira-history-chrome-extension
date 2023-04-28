@@ -46,11 +46,14 @@ function getTextHolder(wrapper) {
 function displayTextDifference(textA, textB, fragment) {
   const diff = Diff.diffChars(textA, textB);
   diff.forEach((part) => {
-    const color = part.added ? "#17B169" : part.removed ? "#E31837" : "black";
-    const span = document.createElement("span");
-    span.style.color = color;
-    span.appendChild(document.createTextNode(part.value));
-    fragment.appendChild(span);
+    if (part.added || part.removed) {
+      const span = document.createElement("span");
+      span.style.backgroundColor = part.added ? "#e6ffec" : "#ffebe9";
+      span.appendChild(document.createTextNode(part.value));
+      fragment.appendChild(span)
+    } else {
+      fragment.appendChild(document.createTextNode(part.value));
+    }
   });
 }
 
