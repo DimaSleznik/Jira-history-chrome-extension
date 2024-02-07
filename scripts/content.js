@@ -44,13 +44,16 @@ function getTextHolder(wrapper) {
 }
 
 function displayTextDifference(textA, textB, fragment) {
-  const diff = Diff.diffChars(textA, textB);
+  const diff = Diff.diffWords(textA, textB);
   diff.forEach((part) => {
-    const color = part.added ? "#17B169" : part.removed ? "#E31837" : "black";
-    const span = document.createElement("span");
-    span.style.color = color;
-    span.appendChild(document.createTextNode(part.value));
-    fragment.appendChild(span);
+    if (part.added || part.removed) {
+      const span = document.createElement("span");
+      span.style.backgroundColor = part.added ? "#e6ffec" : "#ffebe9";
+      span.appendChild(document.createTextNode(part.value));
+      fragment.appendChild(span)
+    } else {
+      fragment.appendChild(document.createTextNode(part.value));
+    }
   });
 }
 
@@ -66,9 +69,9 @@ function closeWrappersOnClickOutside(clickedElement) {
 }
 
 function createShowTextDifferenceButtons() {
-  const elements = document.querySelectorAll("div[data-test-id]");
+  const elements = document.querySelectorAll("div[data-testid]");
   const filteredById = [...elements].filter((el) => {
-    return el.getAttribute("data-test-id") === CHANGES_ELEMENT_VALUE;
+    return el.getAttribute("data-testid") === CHANGES_ELEMENT_VALUE;
   });
   filteredById.forEach((el) => {
     const historyBlock = el.children[1].children[1].children;
@@ -86,6 +89,7 @@ function addButtonsEvents() {
   const elements = document.querySelectorAll("button[data-testid]");
   const historyBtn = [...elements].find(el => el.getAttribute("data-testid") === HISTORY_BTN_ID)
   if (historyBtn) {
+    historyBtn.innerHTML += ' ⇔';
     historyBtn.addEventListener('click', () => setTimeout(createShowTextDifferenceButtons, 2000));
     document.addEventListener('click', (event) => closeWrappersOnClickOutside(event.target));
   }
